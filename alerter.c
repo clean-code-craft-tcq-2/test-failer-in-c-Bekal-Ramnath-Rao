@@ -25,7 +25,7 @@ void alertInCelcius(float farenheit,int (*networkAlert)(float)) {
 
 int main() {
     int (*funp_networkalert)(float);
-    (*funp_networkalert)(float) = networkAlertStub;
+    (*funp_networkalert)(float) = &networkAlertStub;
     alertInCelcius(400.5,funp_networkalert);
     alertInCelcius(303.6,funp_networkalert);
     alertInCelcius(1000,funp_networkalert);
