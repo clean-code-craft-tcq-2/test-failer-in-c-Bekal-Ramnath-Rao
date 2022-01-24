@@ -24,7 +24,7 @@ void alertInCelcius(float farenheit,int (*networkAlert)(float)) {
 }
 
 int main() {
-    int (*funp_networkalert)(float) = networkAlertStub;
+    int (*funp_networkalert)(float) = networkAlertStub; //use networkAlertStub in test environment and xxnetworkAlertxx in real environment 
     alertInCelcius(400.5,funp_networkalert);
     alertInCelcius(303.6,funp_networkalert);
     alertInCelcius(1000,funp_networkalert);
