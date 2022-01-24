@@ -27,8 +27,8 @@ int main() {
     int (*funp_networkalert)(float);
     (*funp_networkalert)(float) = networkAlertStub;
     alertInCelcius(400.5,funp_networkalert);
-    alertInCelcius(303.6);
-    alertInCelcius(1000);
+    alertInCelcius(303.6,funp_networkalert);
+    alertInCelcius(1000,funp_networkalert);
     assert(alertFailureCount == 1);
     printf("%d alerts failed.\n", alertFailureCount);
     printf("All is well (maybe!)\n");
