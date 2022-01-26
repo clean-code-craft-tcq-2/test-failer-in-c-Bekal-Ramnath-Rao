@@ -2,6 +2,14 @@
 #include <assert.h>
 #include <string.h>
 
+#define ENVIRONMENT_PRODUCTION 	0
+#define ENVIRONMENT_TEST 	   	1
+
+#define ENVIRONMENT ENVIRONMENT_TEST
+
+#define MAJOR_COLOR 0
+#define MINOR_COLOR 1
+
 const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
 const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
@@ -24,8 +32,8 @@ int printColorMap(void (*fun_printonConsole)(const char*, const char*,int,int), 
 	int i=0,j=0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            fun_printonConsole(fun_getMajorMinorcolor[0](i), 
-            					   fun_getMajorMinorcolor[1](i),i,j);
+            fun_printonConsole(fun_getMajorMinorcolor[MAJOR_COLOR](i), 
+            					   fun_getMajorMinorcolor[MINOR_COLOR](i),i,j);
         }
     }
     return i * j;
@@ -37,11 +45,23 @@ void printColorMapOnConsole(const char* colorMajor,const char* colorMinor, int i
 	printf("%d | %s | %s\n", index_major* 5 + index_minor,colorMajor,colorMinor); 
 }
 
+#if(ENVIRONMENT == ENVIRONMENT_TEST)
 void Test_printColorMapOnConsole(const char* colorMajor,const char* colorMinor,int index_major, int index_minor)
 {
 	assert(colorMajor == majorColor[index_major]);
 	assert(colorMinor == minorColor[index_minor]);
 }
+
+const char* Test_getMajorcolor(int index)
+{
+	return getMajorcolor(index);
+}
+
+const char* Test_getMinorcolor(int index)
+{
+	return getMinorcolor(index);
+}
+#endif
 
 int main() {
 	const char* (*l_getMajorMinorcolor[])(int) = {getMajorcolor,getMinorcolor}; 
@@ -49,10 +69,20 @@ int main() {
     int result = printColorMap(l_printonConsole, l_getMajorMinorcolor);
     assert(result == 25);
 
-    /* Testing function printColorMap */
-    void (*l_testprintonConsole)(const char*, const char*,int,int) = Test_printColorMapOnConsole;	
+	#if(ENVIRONMENT == ENVIRONMENT_TEST)
+    /* Testing function printColorMap, getMinorcolor, getMajorcolor */
+    void (*l_testprintonConsole)(const char*, const char*,int,int) = Test_printColorMapOnConsole;
+    const char* l_testgetMajorcolor = Test_getMajorcolor(0);
+    assert(l_testgetMajorcolor == "White");
+    l_testgetMajorcolor = Test_getMajorcolor(3);
+    assert(l_testgetMajorcolor == "Yellow");
+    const char* l_testgetMinorcolor = Test_getMinorcolor(1);
+    assert(l_testgetMinorcolor == "Orange");
+    l_testgetMinorcolor = Test_getMinorcolor(2);
+    assert(l_testgetMinorcolor == "Green");
     result = printColorMap(l_testprintonConsole, l_getMajorMinorcolor);
     assert(result == 25);
     printf("All is well (maybe!)\n");
+    #endif
     return 0;
 }
