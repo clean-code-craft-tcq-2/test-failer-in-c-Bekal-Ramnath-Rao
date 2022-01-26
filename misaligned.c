@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define ENVIRONMENT_PRODUCTION 	0
-#define ENVIRONMENT_TEST 	   	1
+#define ENVIRONMENT_TEST 	1
 
 #define ENVIRONMENT ENVIRONMENT_TEST
 
