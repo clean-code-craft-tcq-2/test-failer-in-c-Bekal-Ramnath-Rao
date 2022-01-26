@@ -73,13 +73,13 @@ int main() {
     /* Testing function printColorMap, getMinorcolor, getMajorcolor */
     void (*l_testprintonConsole)(const char*, const char*,int,int) = Test_printColorMapOnConsole;
     const char* l_testgetMajorcolor = Test_getMajorcolor(0);
-    assert(l_testgetMajorcolor == "White");
+    assert(strcmp(l_testgetMajorcolor ,"White") == 0);
     l_testgetMajorcolor = Test_getMajorcolor(3);
-    assert(l_testgetMajorcolor == "Yellow");
+    assert(strcmp(l_testgetMajorcolor ,"Yellow") == 0);
     const char* l_testgetMinorcolor = Test_getMinorcolor(1);
-    assert(l_testgetMinorcolor == "Orange");
+    assert(strcmp(l_testgetMinorcolor ,"Orange") == 0);
     l_testgetMinorcolor = Test_getMinorcolor(2);
-    assert(l_testgetMinorcolor == "Green");
+    assert(strcmp(l_testgetMinorcolor ,"Green")  == 0);
     result = printColorMap(l_testprintonConsole, l_getMajorMinorcolor);
     assert(result == 25);
     printf("All is well (maybe!)\n");
