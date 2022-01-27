@@ -3,12 +3,21 @@
 
 int alertFailureCount = 0;
 
-int networkAlertStub(float celcius) {
+int networkAlertStubOK(float celcius) {
     printf("ALERT: Temperature is %.1f celcius.\n", celcius);
     // Return 200 for ok
     // Return 500 for not-ok
     // stub always succeeds and returns 200
     return 200;
+}
+
+
+int networkAlertStubNotOK(float celcius) {
+    printf("ALERT: Temperature is %.1f celcius.\n", celcius);
+    // Return 200 for ok
+    // Return 500 for not-ok
+    // stub always succeeds and returns 200
+    return 500;
 }
 
 void alertInCelcius(float farenheit,int (*networkAlert)(float)) {
@@ -24,9 +33,11 @@ void alertInCelcius(float farenheit,int (*networkAlert)(float)) {
 }
 
 int main() {
-    int (*funp_networkalert)(float) = networkAlertStub; //use networkAlertStub in test environment and xxnetworkAlertxx in real environment 
+    int (*funp_networkalert)(float) = networkAlertStubOK; //use networkAlertStub in test environment and xxnetworkAlertxx in real environment 
     alertInCelcius(400.5,funp_networkalert);
     alertInCelcius(303.6,funp_networkalert);
+    
+    (*funp_networkalert)(float) = networkAlertStubNotOK;
     alertInCelcius(1000,funp_networkalert);
     assert(alertFailureCount == 1);
     printf("%d alerts failed.\n", alertFailureCount);
