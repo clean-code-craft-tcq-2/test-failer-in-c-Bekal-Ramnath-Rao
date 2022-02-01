@@ -33,11 +33,12 @@ void alertInCelcius(float farenheit,int (*networkAlert)(float)) {
 }
 
 int main() {
-    int (*funp_networkalert[])(float) = {networkAlertStubOK,networkAlertStubNotOK}; //use networkAlertStub in test environment and xxnetworkAlertxx in real environment 
-    alertInCelcius(400.5,funp_networkalert[0]);
-    alertInCelcius(303.6,funp_networkalert[0]);
+    int (*funp_networkalert)(float) = networkAlertStubOK; //use networkAlertStub in test environment and xxnetworkAlertxx in real environment 
+    alertInCelcius(400.5,funp_networkalert);
+    alertInCelcius(303.6,funp_networkalert);
     
-    alertInCelcius(1000,funp_networkalert[1]);
+    funp_networkalert = networkAlertStubNotOK;
+    alertInCelcius(1000,funp_networkalert);
     assert(alertFailureCount == 1);
     printf("%d alerts failed.\n", alertFailureCount);
     printf("All is well (maybe!)\n");
