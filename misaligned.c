@@ -18,31 +18,31 @@ const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 int Test_index=0;
 
 char Test_Buffer[25][25] =   {" 0 | White  | Blue",
-							  " 1 | White  | Orange",
-							  " 2 | White  | Green",
-							  " 3 | White  | Brown",
-							  " 4 | White  | Slate",
-							  " 5 | Red    | Blue",
-							  " 6 | Red    | Orange",
-							  " 7 | Red    | Green",
-							  " 8 | Red    | Brown",
-							  " 9 | Red    | Slate",
-							  "10 | Black  | Blue",
-							  "11 | Black  | Orange",
-							  "12 | Black  | Green",
-							  "13 | Black  | Brown",
-							  "14 | Black  | Slate",
-							  "15 | Yellow | Blue",
-							  "16 | Yellow | Orange",
-							  "17 | Yellow | Green",
-							  "18 | Yellow | Brown",
-							  "19 | Yellow | Slate",
-							  "20 | Violet | Blue",
-							  "21 | Violet | Orange",
-							  "22 | Violet | Green",
-							  "23 | Violet | Brown",
-							  "24 | Violet | Slate"
-							  };
+			      " 1 | White  | Orange",
+			      " 2 | White  | Green",
+			      " 3 | White  | Brown",
+			      " 4 | White  | Slate",
+			      " 5 | Red    | Blue",
+			      " 6 | Red    | Orange",
+			      " 7 | Red    | Green",
+			      " 8 | Red    | Brown",
+			      " 9 | Red    | Slate",
+			      "10 | Black  | Blue",
+			      "11 | Black  | Orange",
+			      "12 | Black  | Green",
+			      "13 | Black  | Brown",
+			      "14 | Black  | Slate",
+			      "15 | Yellow | Blue",
+			      "16 | Yellow | Orange",
+			      "17 | Yellow | Green",
+			      "18 | Yellow | Brown",
+			      "19 | Yellow | Slate",
+			      "20 | Violet | Blue",
+			      "21 | Violet | Orange",
+			      "22 | Violet | Green",
+			      "23 | Violet | Brown",
+			      "24 | Violet | Slate"
+			      };
 #endif
 
 char buffer[50];
@@ -62,7 +62,7 @@ const char* getMinorcolor(int index)
 
 int printColorMap(void (*fun_formatonConsole)(const char*, const char*,int,int, void(*)()), const char* (*fun_getMajorMinorcolor[])(int)
 					,void (*fun_printOnConsole)()) {
-	int i=0,j=0;
+    int i=0,j=0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
             fun_formatonConsole(fun_getMajorMinorcolor[MAJOR_COLOR](i), 
@@ -102,7 +102,7 @@ const char* Test_getMinorcolor(int index)
 
 void Test_Environment()
 {
-	const char* l_testgetMajorcolor = Test_getMajorcolor(0);
+    const char* l_testgetMajorcolor = Test_getMajorcolor(0);
     assert(strcmp(l_testgetMajorcolor ,"White") == 0);
     l_testgetMajorcolor = Test_getMajorcolor(3);
     assert(strcmp(l_testgetMajorcolor ,"Yellow") == 0);
@@ -111,8 +111,8 @@ void Test_Environment()
     l_testgetMinorcolor = Test_getMinorcolor(2);
     assert(strcmp(l_testgetMinorcolor ,"Green")  == 0);
 
-	/* Testing function printColorMap, getMinorcolor, getMajorcolor, formatColorMapOnConsole */
-	const char* (*l_testgetMajorMinorcolor[])(int) = {getMajorcolor,getMinorcolor}; 
+    /* Testing function printColorMap, getMinorcolor, getMajorcolor, formatColorMapOnConsole */
+    const char* (*l_testgetMajorMinorcolor[])(int) = {getMajorcolor,getMinorcolor}; 
     void (*l_testformatonConsole)(const char*, const char*,int,int,void (*)()) = formatColorMapOnConsole;
     void (*l_testprintOnConsole)() = Test_PrintandFormatOnConsole;
     int result = printColorMap(l_testformatonConsole, l_testgetMajorMinorcolor,l_testprintOnConsole);
@@ -124,15 +124,15 @@ void Test_Environment()
 
 int main() {
 
-	#if(ENVIRONMENT == ENVIRONMENT_PRODUCTION)
-	const char* (*l_getMajorMinorcolor[])(int) = {getMajorcolor,getMinorcolor}; 
-	void (*l_formatonConsole)(const char*, const char*,int,int,void (*p)()) = formatColorMapOnConsole;
-	void (*l_printOnConsole)() = printColorMapOnConsole;
+    #if(ENVIRONMENT == ENVIRONMENT_PRODUCTION)
+    const char* (*l_getMajorMinorcolor[])(int) = {getMajorcolor,getMinorcolor}; 
+    void (*l_formatonConsole)(const char*, const char*,int,int,void (*p)()) = formatColorMapOnConsole;
+    void (*l_printOnConsole)() = printColorMapOnConsole;
     int result = printColorMap(l_formatonConsole, l_getMajorMinorcolor,l_printOnConsole);
     assert(result == 25);
     #endif
     
-	#if(ENVIRONMENT == ENVIRONMENT_TEST)
+    #if(ENVIRONMENT == ENVIRONMENT_TEST)
     Test_Environment();
     #endif
     return 0;
